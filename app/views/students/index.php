@@ -10,44 +10,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <!-- DataTables -->
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/student-management/public/assets/css/app.css">
     <style>
-        .sidebar {
-            background-color: #0d6efd;
-            color: white;
-            min-height: 100vh;
-        }
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-        }
-        .sidebar a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .sidebar .active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        .main-content {
-            margin-left: 250px;
-        }
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-            .main-content {
-                margin-left: 0;
-            }
-        }
-        .action-buttons .btn {
-            margin-right: 0.5rem;
-        }
-        .photo-thumbnail {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
+        /* page-specific */
+        .action-buttons .btn { margin-right: 0.5rem; }
     </style>
 </head>
 <body>

@@ -8,53 +8,15 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/student-management/public/assets/css/app.css">
     <style>
-        .sidebar {
-            background-color: #0d6efd;
-            color: white;
-            min-height: 100vh;
-        }
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-        }
-        .sidebar a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .sidebar .active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        .main-content {
-            margin-left: 250px;
-        }
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-            .main-content {
-                margin-left: 0;
-            }
-        }
-        .form-section {
-            border: 1px solid #dee2e6;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .form-section-title {
-            border-bottom: 2px solid #0d6efd;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            color: #0d6efd;
-        }
+        /* page-specific */
         .photo-preview {
             width: 150px;
             height: 150px;
             object-fit: cover;
             border-radius: 50%;
-            border: 3px solid #0d6efd;
+            border: 3px solid var(--primary);
             margin-bottom: 1rem;
         }
     </style>

@@ -8,51 +8,12 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/student-management/public/assets/css/app.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- DataTables -->
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <style>
-        .sidebar {
-            background-color: #0d6efd;
-            color: white;
-            min-height: 100vh;
-        }
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-        }
-        .sidebar a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .sidebar .active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        .main-content {
-            margin-left: 250px;
-        }
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-            .main-content {
-                margin-left: 0;
-            }
-        }
-        .stats-card {
-            border-left: 4px solid;
-            transition: transform 0.2s;
-        }
-        .stats-card:hover {
-            transform: translateY(-5px);
-        }
-        .stats-card-primary { border-left-color: #0d6efd; }
-        .stats-card-success { border-left-color: #198754; }
-        .stats-card-info { border-left-color: #0dcaf0; }
-        .stats-card-warning { border-left-color: #ffc107; }
-        .stats-card-danger { border-left-color: #dc3545; }
     </style>
 </head>
 <body>
@@ -199,56 +160,50 @@
     <!-- Chart.js -->
     <script>
         // Gender Chart
-        const genderCtx = document.getElementById('genderChart').getContext('2d');
-        const genderChart = new Chart(genderCtx, {
-            type: 'pie',
-            data: {
-                labels: <?= json_encode(array_column($genderData ?? [], 'gender')) ?>,
-                datasets: [{
-                    data: <?= json_encode(array_column($genderData ?? [], 'count')) ?>,
-                    backgroundColor: [
-                        '#0d6efd',
-                        '#198754',
-                        '#ffc107',
-                        '#dc3545',
-                        '#0dcaf0',
-                        '#6f42c1'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
+        const genderChartEl = document.getElementById('genderChart');
+        if (genderChartEl) {
+            const genderCtx = genderChartEl.getContext('2d');
+            new Chart(genderCtx, {
+                type: 'pie',
+                data: {
+                    labels: <?= json_encode(array_column($genderData ?? [], 'gender')) ?>,
+                    datasets: [{
+                        data: <?= json_encode(array_column($genderData ?? [], 'count')) ?>,
+                        backgroundColor: ['#0d6efd', '#198754', '#ffc107', '#dc3545', '#0dcaf0', '#6f42c1']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
                     }
                 }
-            }
-        });
+            });
+        }
 
         // Admissions Chart
-        const admissionsCtx = document.getElementById('admissionsChart').getContext('2d');
-        const admissionsChart = new Chart(admissionsCtx, {
-            type: 'line',
-            data: {
-                labels: <?= json_encode(array_column($monthlyAdmissionsData ?? [], 'month')) ?>,
-                datasets: [{
-                    label: 'New Admissions',
-                    data: <?= json_encode(array_column($monthlyAdmissionsData ?? [], 'count')) ?>,
-                    borderColor: '#0d6efd',
-                    backgroundColor: 'rgba(13, 110, 253, 0.1)',
-                    tension: 0.1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+        const admissionsChartEl = document.getElementById('admissionsChart');
+        if (admissionsChartEl) {
+            const admissionsCtx = admissionsChartEl.getContext('2d');
+            new Chart(admissionsCtx, {
+                type: 'line',
+                data: {
+                    labels: <?= json_encode(array_column($monthlyAdmissionsData ?? [], 'month')) ?>,
+                    datasets: [{
+                        label: 'New Admissions',
+                        data: <?= json_encode(array_column($monthlyAdmissionsData ?? [], 'count')) ?>,
+                        borderColor: '#0d6efd',
+                        backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { y: { beginAtZero: true } }
                 }
-            }
-        });
+            });
+        }
     </script>
 </body>
 </html>
+
