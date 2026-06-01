@@ -73,6 +73,9 @@ $activeYearId = $activeYear ? $activeYear['id'] : 0;
     <div class="card-glass-header d-flex justify-content-between align-items-center">
         <h5><i class="bi bi-people-fill me-2"></i>Students <span class="badge bg-primary ms-2"><?= count($students) ?></span></h5>
         <div class="d-flex gap-2">
+            <a href="?page=students&action=trash" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-trash3 me-1"></i>Trash
+            </a>
             <button class="btn btn-sm btn-outline-success" onclick="exportTable('excel')">
                 <i class="bi bi-file-earmark-excel me-1"></i>Excel
             </button>

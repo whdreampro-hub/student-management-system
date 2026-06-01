@@ -81,15 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Activate tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
-
-    // Highlight active nav (safety fallback)
-    const page = new URLSearchParams(window.location.search).get('page');
-    document.querySelectorAll('.nav-item').forEach(link => {
-        const href = link.getAttribute('href') || '';
-        if (href.includes('page=' + page) && !link.classList.contains('active')) {
-            // Additional highlighting if needed
-        }
-    });
 });
 
 // ── Print helpers ────────────────────────────────────

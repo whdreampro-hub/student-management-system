@@ -95,8 +95,11 @@ function saveClass() {
     const url = editMode ? '?page=classes&action=update' : '?page=classes&action=store';
     $.ajax({ url, method:'POST', data:fd, processData:false, contentType:false, dataType:'json',
         success: res => {
-            if (res.success) { showToast('success', res.message); setTimeout(() => location.reload(), 800); bootstrap.Modal.getInstance(document.getElementById('classModal'))?.hide(); }
-            else showToast('error', res.message);
+            if (res.success) {
+                showToast('success', res.message);
+                setTimeout(() => location.reload(), 800);
+                bootstrap.Modal.getInstance(document.getElementById('classModal'))?.hide();
+            } else showToast('error', res.message);
         }
     });
 }

@@ -168,28 +168,16 @@ $statusColors = ['active'=>'success','promoted'=>'info','transferred'=>'warning'
 </div>
 
 <script>
-let classesData = [], yearsData = [];
-
 function populateSelects() {
-    $.get('?page=classes&action=all', r => {
-        classesData = r.data;
+    $.getJSON('?page=classes&action=all', r => {
         ['promoteClass','transferClass'].forEach(id => {
             const sel = document.getElementById(id);
             if (!sel) return;
             sel.innerHTML = '<option value="">Select Class</option>' +
                 r.data.map(c => `<option value="${c.id}">${c.class_name} (${c.level})</option>`).join('');
         });
-    }, 'json');
-
-    $.get('?page=academic_years&action=all', r => {
-        yearsData = r;
-    }).always(() => {
-        fetch('?page=academic_years').then(() => {});
     });
-}
 
-$.getJSON('?page=academic_years', function(){}).always(function(){
-    // Load years manually
     fetch('?page=academic_years&action=all')
         .then(r => r.json()).then(r => {
             if (!r || !r.data) return;
@@ -200,7 +188,7 @@ $.getJSON('?page=academic_years', function(){}).always(function(){
                     r.data.map(y => `<option value="${y.id}" ${y.status==='active'?'selected':''}>${y.year_name}</option>`).join('');
             });
         });
-});
+}
 
 function openPromoteModal() { populateSelects(); new bootstrap.Modal(document.getElementById('promoteModal')).show(); }
 function openTransferModal() { populateSelects(); new bootstrap.Modal(document.getElementById('transferModal')).show(); }
@@ -233,19 +221,6 @@ function deleteStudent(id, name) {
         }
     });
 }
-
-// Preload selects
-document.addEventListener('DOMContentLoaded', function() {
-    // Load classes into modal selects on page load
-    $.getJSON('?page=classes&action=all', r => {
-        ['promoteClass','transferClass'].forEach(id => {
-            const sel = document.getElementById(id);
-            if (!sel) return;
-            sel.innerHTML = '<option value="">Select Class</option>' +
-                r.data.map(c => `<option value="${c.id}">${c.class_name} (${c.level})</option>`).join('');
-        });
-    });
-});
 </script>
 
 <?php require_once APP . '/views/layouts/footer.php'; ?>

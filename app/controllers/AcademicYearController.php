@@ -47,6 +47,12 @@ class AcademicYearController {
     public function delete(): void {
         $id = (int)($_POST['id'] ?? 0);
         if (!$id) { jsonResponse(['success' => false, 'message' => 'Invalid ID.']); return; }
+        // Prevent deleting the active year
+        $year = $this->model->getById($id);
+        if ($year && $year['status'] === 'active') {
+            jsonResponse(['success' => false, 'message' => 'Cannot delete the active academic year.']);
+            return;
+        }
         $this->model->delete($id);
         jsonResponse(['success' => true, 'message' => 'Academic year deleted.']);
     }

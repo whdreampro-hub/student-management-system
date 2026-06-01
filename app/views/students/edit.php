@@ -123,6 +123,7 @@ require_once APP . '/views/layouts/header.php';
     </div>
 </div>
 </form>
+
 <script>
 function previewPhoto(input) {
     if (input.files && input.files[0]) {

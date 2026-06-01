@@ -16,7 +16,7 @@ require_once APP . '/views/layouts/header.php';
     <div class="card-glass-body p-0">
         <div class="table-responsive">
             <table class="table table-hover mb-0">
-                <thead><tr><th>#</th><th>Year Name</th><th>Status</th><th>Actions</th></tr></thead>
+                <thead><tr><th>#</th><th>Year Name</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>
                 <tbody>
                 <?php foreach ($years as $i => $y): ?>
                 <tr>
@@ -29,6 +29,7 @@ require_once APP . '/views/layouts/header.php';
                             <span class="badge bg-secondary">Inactive</span>
                         <?php endif; ?>
                     </td>
+                    <td><?= $y['created_at'] ? date('M d, Y', strtotime($y['created_at'])) : '—' ?></td>
                     <td>
                         <div class="d-flex gap-2">
                             <?php if ($y['status'] !== 'active'): ?>
@@ -52,7 +53,7 @@ require_once APP . '/views/layouts/header.php';
                 </tr>
                 <?php endforeach; ?>
                 <?php if (empty($years)): ?>
-                <tr><td colspan="4"><div class="empty-state py-4"><i class="bi bi-calendar-x"></i><p>No academic years yet</p></div></td></tr>
+                <tr><td colspan="5"><div class="empty-state py-4"><i class="bi bi-calendar-x"></i><p>No academic years yet</p></div></td></tr>
                 <?php endif; ?>
                 </tbody>
             </table>
@@ -114,8 +115,11 @@ function saveYear() {
     const url = yearEditMode ? '?page=academic_years&action=update' : '?page=academic_years&action=store';
     $.ajax({ url, method:'POST', data:fd, processData:false, contentType:false, dataType:'json',
         success: res => {
-            if (res.success) { showToast('success', res.message); setTimeout(() => location.reload(), 800); bootstrap.Modal.getInstance(document.getElementById('yearModal'))?.hide(); }
-            else showToast('error', res.message);
+            if (res.success) {
+                showToast('success', res.message);
+                setTimeout(() => location.reload(), 800);
+                bootstrap.Modal.getInstance(document.getElementById('yearModal'))?.hide();
+            } else showToast('error', res.message);
         }
     });
 }

@@ -16,7 +16,7 @@ require_once APP . '/views/layouts/header.php';
 <form id="createStudentForm" enctype="multipart/form-data">
 <div class="row g-4">
 
-    <!-- Left Column -->
+    <!-- Left Column: Photo -->
     <div class="col-lg-4">
         <div class="card-glass h-100">
             <div class="card-glass-header"><h5><i class="bi bi-image me-2"></i>Photo</h5></div>
@@ -34,7 +34,7 @@ require_once APP . '/views/layouts/header.php';
         </div>
     </div>
 
-    <!-- Right Column -->
+    <!-- Right Column: Personal Info -->
     <div class="col-lg-8">
         <div class="card-glass">
             <div class="card-glass-header"><h5><i class="bi bi-person-fill me-2"></i>Personal Information</h5></div>
