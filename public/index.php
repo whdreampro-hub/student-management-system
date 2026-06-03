@@ -13,6 +13,8 @@ require_once APP . '/models/ClassModel.php';
 require_once APP . '/models/AcademicYearModel.php';
 require_once APP . '/models/HistoryModel.php';
 require_once APP . '/models/ActivityLogModel.php';
+require_once APP . '/models/DisciplineModel.php';
+require_once APP . '/models/AttendanceModel.php';
 
 // Autoload controllers
 require_once APP . '/controllers/AuthController.php';
@@ -21,6 +23,8 @@ require_once APP . '/controllers/StudentController.php';
 require_once APP . '/controllers/ClassController.php';
 require_once APP . '/controllers/AcademicYearController.php';
 require_once APP . '/controllers/HistoryController.php';
+require_once APP . '/controllers/DisciplineController.php';
+require_once APP . '/controllers/AttendanceController.php';
 
 // Helpers
 function redirect(string $url): void {
@@ -106,11 +110,35 @@ switch ($page) {
     case 'classes':
         $ctrl = new ClassController();
         match($action) {
-            'store'  => $ctrl->store(),
-            'update' => $ctrl->update(),
-            'delete' => $ctrl->delete(),
-            'all'    => $ctrl->getAll(),
-            default  => $ctrl->index(),
+            'store'          => $ctrl->store(),
+            'update'         => $ctrl->update(),
+            'delete'         => $ctrl->delete(),
+            'all'            => $ctrl->getAll(),
+            'students'       => $ctrl->students(),
+            'student_detail' => $ctrl->studentDetail(),
+            default          => $ctrl->index(),
+        };
+        break;
+
+    // ── Discipline ───────────────────────────────────────
+    case 'discipline':
+        $ctrl = new DisciplineController();
+        match($action) {
+            'deduct'          => $ctrl->deduct(),
+            'restore'         => $ctrl->restore(),
+            'get_records'     => $ctrl->getStudentRecords(),
+            'delete_record'   => $ctrl->deleteRecord(),
+            default           => $ctrl->index(),
+        };
+        break;
+
+    // ── Attendance ───────────────────────────────────────
+    case 'attendance':
+        $ctrl = new AttendanceController();
+        match($action) {
+            'save'      => $ctrl->save(),
+            'get_sheet' => $ctrl->getSheet(),
+            default     => $ctrl->index(),
         };
         break;
 

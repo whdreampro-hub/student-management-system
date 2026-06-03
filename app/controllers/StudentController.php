@@ -51,6 +51,9 @@ class StudentController {
 
         $studentId = $this->studentModel->create($data);
 
+        // Initialize behavior marks (every new student starts at 40)
+        (new DisciplineModel())->getMarks($studentId);
+
         // Enroll in class if provided
         $classId = (int)($_POST['class_id'] ?? 0);
         $yearId  = (int)($_POST['academic_year_id'] ?? 0);

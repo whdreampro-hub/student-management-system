@@ -54,7 +54,7 @@ $adminName   = $_SESSION['admin_name'] ?? 'Admin';
         </a>
 
         <div class="nav-section-label">Academic</div>
-        <a href="?page=classes" class="nav-item <?= $currentPage==='classes'?'active':'' ?>">
+        <a href="?page=classes" class="nav-item <?= $currentPage==='classes'&&!in_array($_GET['action']??'',['students','student_detail'])?'active':'' ?>">
             <i class="bi bi-building-fill"></i><span>Classes</span>
         </a>
         <a href="?page=academic_years" class="nav-item <?= $currentPage==='academic_years'?'active':'' ?>">
@@ -62,6 +62,14 @@ $adminName   = $_SESSION['admin_name'] ?? 'Admin';
         </a>
         <a href="?page=history" class="nav-item <?= $currentPage==='history'?'active':'' ?>">
             <i class="bi bi-clock-history"></i><span>Movement History</span>
+        </a>
+
+        <div class="nav-section-label">Discipline &amp; Attendance</div>
+        <a href="?page=attendance" class="nav-item <?= $currentPage==='attendance'?'active':'' ?>">
+            <i class="bi bi-calendar-check-fill"></i><span>Attendance</span>
+        </a>
+        <a href="?page=discipline" class="nav-item <?= $currentPage==='discipline'||($currentPage==='classes'&&in_array($_GET['action']??'',['students','student_detail']))?'active':'' ?>">
+            <i class="bi bi-shield-exclamation"></i><span>Discipline</span>
         </a>
     </nav>
 

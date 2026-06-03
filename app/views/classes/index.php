@@ -23,6 +23,12 @@ require_once APP . '/views/layouts/header.php';
             <div class="class-card-desc"><?= htmlspecialchars($c['description']) ?></div>
             <?php endif; ?>
             <div class="class-card-actions">
+                <a href="?page=classes&action=students&class_id=<?= $c['id'] ?>" class="btn btn-xs btn-outline-primary">
+                    <i class="bi bi-people-fill"></i> Students
+                </a>
+                <a href="?page=attendance&class_id=<?= $c['id'] ?>" class="btn btn-xs btn-outline-success">
+                    <i class="bi bi-calendar-check"></i>
+                </a>
                 <button class="btn btn-xs btn-outline-warning"
                     onclick="openEdit(<?= htmlspecialchars(json_encode($c)) ?>)">
                     <i class="bi bi-pencil"></i>
