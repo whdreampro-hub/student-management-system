@@ -1,28 +1,18 @@
-# TODO
+# Project maintenance
 
-## ✅ Completed
+## Completed
 
-All merge conflicts have been resolved. The app is fully functional.
+- Resolved the previously documented merge conflicts.
+- Removed the web-accessible setup endpoint that could reset the administrator password to a known default.
+- Moved database initialization to the CLI-only `scripts/setup.php` command.
+- Removed the default administrator seed from the schema.
+- Excluded the database dump from the current source tree and added ignore rules for local database and photo data.
+- Switched database connection settings to environment variables.
 
-### What was fixed
-- Resolved all 13 git merge conflict markers across PHP files, CSS, JS, and .htaccess
-- Kept the HEAD (Branch A) implementation consistently throughout
-- Fixed `public/.htaccess` merge conflict — Apache was returning 500 before PHP ran
-- Fixed root `.htaccess` wrong path (`student-management-system` → `student-management`)
-- Removed dead Branch B code: `controllers/`, `models/`, `views/`, `config/`, `helpers/` (root-level)
-- Removed security-risk diagnostic files: `public/test-config.php`, `public/test.php`, `test.php`
-- Removed duplicate schema: `database_schema.sql` (Branch B's incompatible schema)
-- Removed unused `app/controllers/LoginController.php` (Branch B, plaintext password comparison)
-- Removed unused `index.html` placeholder
+## Remaining work
 
-### Architecture (Branch A — active)
-- Entry point: `public/index.php` (front controller + router)
-- URL scheme: `?page=X&action=Y`
-- Auth: session key `admin_id`, table `admins`, bcrypt passwords
-- DB: `student_management` (see `database/schema.sql`)
-- Setup: run `public/setup.php` once, then delete it
-
-## Remaining / Future Work
-- [ ] Delete `public/setup.php` after running it (it's a one-time setup script)
-- [ ] Reports feature — add `app/controllers/ReportController.php` with CSV/PDF export
-- [ ] Consider moving DB credentials to a `.env` file outside webroot
+- Add automated tests for authentication, student CRUD, promotions, and transfers.
+- Add CSRF protection to every state-changing form.
+- Validate uploaded photo MIME types, file sizes, and generated filenames on the server.
+- Review authorization checks for all administrative routes before production use.
+- Add a documented backup and restore procedure.

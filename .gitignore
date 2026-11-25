@@ -1,0 +1,13 @@
+# Local environment and secrets
+/.env
+/.env.*
+!/.env.example
+
+# Database exports and logs
+/student_management.sql
+*.sql.gz
+*.log
+
+# Uploaded student photos (keep the directory placeholder)
+/public/assets/uploads/photos/*
+!/public/assets/uploads/photos/.gitkeep

@@ -18,10 +18,8 @@ CREATE TABLE IF NOT EXISTS admins (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
--- Default admin: admin / admin123
-INSERT INTO admins (username, password, full_name, email) VALUES
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'System Administrator', 'admin@school.com');
--- Note: password hash above = 'password' (Laravel default). Will be replaced during setup.
+-- Administrator accounts are created explicitly by the CLI setup script.
+-- No default username or password is seeded.
 
 -- ============================================================
 -- ACADEMIC YEARS TABLE

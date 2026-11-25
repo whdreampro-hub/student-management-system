@@ -3,22 +3,22 @@ class Database {
     private static $instance = null;
     private PDO $pdo;
 
-    private string $host     = '127.0.0.1';
-    private string $dbname   = 'student_management';
-    private string $username = 'root';
-    private string $password = '';
-    private string $charset  = 'utf8mb4';
-    private string $port     = '3306';
-
     private function __construct() {
-        $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->dbname};charset={$this->charset}";
+        $host = getenv('DB_HOST') ?: '127.0.0.1';
+        $port = getenv('DB_PORT') ?: '3306';
+        $dbname = getenv('DB_NAME') ?: 'student_management';
+        $username = getenv('DB_USERNAME') ?: 'root';
+        $password = getenv('DB_PASSWORD') ?: '';
+        $charset = 'utf8mb4';
+
+        $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset={$charset}";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => false,
         ];
 
-        $this->pdo = new PDO($dsn, $this->username, $this->password, $options);
+        $this->pdo = new PDO($dsn, $username, $password, $options);
     }
 
     public static function getInstance(): self {
@@ -32,4 +32,3 @@ class Database {
         return $this->pdo;
     }
 }
-
