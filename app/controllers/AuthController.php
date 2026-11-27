@@ -14,10 +14,12 @@ class AuthController {
     }
 
     public function login(): void {
-        $username = trim($_POST['username'] ?? '');
-        $password = trim($_POST['password'] ?? '');
+        $usernameInput = $_POST['username'] ?? '';
+        $password = $_POST['password'] ?? '';
+        $username = is_string($usernameInput) ? trim($usernameInput) : '';
 
-        if (empty($username) || empty($password)) {
+        // Preserve the exact password bytes; leading/trailing spaces may be intentional.
+        if ($username === '' || !is_string($password) || $password === '') {
             $_SESSION['error'] = 'Please enter username and password.';
             redirect('?page=login');
             return;
@@ -28,6 +30,9 @@ class AuthController {
         $admin = $stmt->fetch();
 
         if ($admin && password_verify($password, $admin['password'])) {
+            // Prevent an attacker from reusing the pre-authentication session ID.
+            session_regenerate_id(true);
+
             $_SESSION['admin_id']   = $admin['id'];
             $_SESSION['admin_name'] = $admin['full_name'];
             $_SESSION['admin_user'] = $admin['username'];
@@ -46,6 +51,19 @@ class AuthController {
         if (isset($_SESSION['admin_id'])) {
             $log = new ActivityLogModel();
             $log->log($_SESSION['admin_id'], 'LOGOUT', 'Admin logged out', 'admin', $_SESSION['admin_id']);
+        }
+        // Remove all session data and expire the browser's session cookie.
+        $_SESSION = [];
+        if (ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', [
+                'expires'  => time() - 42000,
+                'path'     => $params['path'],
+                'domain'   => $params['domain'],
+                'secure'   => $params['secure'],
+                'httponly' => $params['httponly'],
+                'samesite' => $params['samesite'] ?? 'Lax',
+            ]);
         }
         session_destroy();
         redirect('?page=login');
